@@ -18,7 +18,7 @@ package:
 build:
   number: 0
 
-# Try this when building{% if "dev" in version %} with GUI
+# Try this when building with GUI
 #extra:
 #  container:
 #    extended-base: True
