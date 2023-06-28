@@ -17,6 +17,7 @@ requirements:
     - {{ compiler('cxx') }}
     - make
     - cmake
+    - sysroot_linux-64 =2.17 # [linux]
   host:
     - libopenms {{ version }}
     - llvm-openmp # [osx]
@@ -44,6 +45,7 @@ requirements:
     - numpy {{ numpy }}
     - pandas
     - matplotlib-base
+    - sysroot_linux-64 =2.17 # [linux]
 test:
   commands:
     - python -c "import pyopenms; print(pyopenms.__version__)"
