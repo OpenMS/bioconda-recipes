@@ -1,5 +1,5 @@
 {% set name = "dxpy" %}
-{% set version = "0.378.0" %}
+{% set version = "0.385.0" %}
 
 package:
   name: "{{ name|lower }}"
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: fe82611e622f8a5016cee3821f337a0e20808c4a9d70da93dc900574fee2897e
+  sha256: 6e0d06e9704e9845967caaf301e918496056ad58e15bd610fb02c3c4d775adcf
 
 build:
   number: 0

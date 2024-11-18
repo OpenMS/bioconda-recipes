@@ -1,5 +1,5 @@
 {% set name = "mvip" %}
-{% set version = "1.0.0" %}
+{% set version = "1.1.5" %}
 
 package:
   name: "{{ name|lower }}"
@@ -7,7 +7,7 @@ package:
 
 source:
   url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
-  sha256: f46d97de0916faa6f747d611160df7bb33219337cb9b01de5608b35421aa2b53
+  sha256: 61f1c5de4bd74b8453eaad5bdd8c95ad46c6b7e10a13977e3734696696785b42
 
 build:
   number: 0
@@ -25,7 +25,7 @@ requirements:
     - python >=3.7
     - tqdm
     - importlib_resources
-    - genomad
+    - genomad ==1.7.4
     - pandas
     - checkv
     - bowtie2
