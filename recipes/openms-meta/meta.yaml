@@ -49,7 +49,7 @@ requirements:
       - eigen >=3.3.4
       - hdf5 >=1.10
       - bzip2
-      - qt-main
+      - qt6-main
       - libsvm
       - coinmp
       - sysroot_linux-64 =2.17 # [linux]
@@ -83,7 +83,7 @@ outputs:
           - eigen >=3.3.4
           - hdf5 >=1.10
           - bzip2
-          - qt-main
+          - qt6-main
           - libsvm
           - coinmp
           - sysroot_linux-64 =2.17 # [linux]
@@ -100,7 +100,7 @@ outputs:
           - {{ pin_compatible('eigen', max_pin='x.x') }}
           - {{ pin_compatible('hdf5', max_pin='x.x') }}
           - {{ pin_compatible('bzip2', max_pin='x.x') }}
-          - {{ pin_compatible('qt-main', max_pin='x.x') }}
+          - {{ pin_compatible('qt6-main', max_pin='x.x') }}
           - {{ pin_compatible('libsvm', max_pin='x.x') }}
           - {{ pin_compatible('coinmp', max_pin='x.x') }}
           - {{ pin_compatible('libarrow', max_pin='x.x') }}
@@ -130,7 +130,7 @@ outputs:
         - eigen >=3.3.4
         - hdf5 >=1.10
         - bzip2
-        - qt-main
+        - qt6-main
         - libsvm
         - coinmp
         - sysroot_linux-64 =2.17 # [linux]
@@ -147,7 +147,7 @@ outputs:
         - {{ pin_compatible('eigen', max_pin='x.x') }}
         - {{ pin_compatible('hdf5', max_pin='x.x') }}
         - {{ pin_compatible('bzip2', max_pin='x.x') }}
-        - {{ pin_compatible('qt-main', max_pin='x.x') }}
+        - {{ pin_compatible('qt6-main', max_pin='x.x') }}
         - {{ pin_compatible('libsvm', max_pin='x.x') }}
         - {{ pin_compatible('coinmp', max_pin='x.x') }}
         - {{ pin_compatible('libarrow', max_pin='x.x') }}
