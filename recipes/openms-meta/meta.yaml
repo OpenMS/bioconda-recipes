@@ -2,7 +2,7 @@
 {% set version = "3.4.1" %} # if ends with 'dev' it is considered a development release and pulled from GitHub
 
 # Note: to create a new release: 
-# - version number
+# - version number -> set to 0 for every new release.
 # - build number
 # - url and md5 
 # need to be updated.
@@ -23,7 +23,7 @@ source:
 {% endif %}
 
 build:
-  number: 7
+  number: 0
   skip: True  # [osx]
 
 # Try this when building with GUI
