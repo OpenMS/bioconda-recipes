@@ -64,7 +64,7 @@ requirements:
       - sysroot_linux-64 =2.17  # [linux]
       - zlib
       - bzip2
-      - libarrow =21.0.0
+      - libarrow
       - libparquet
     run:
       - libgomp  # [linux]
@@ -105,7 +105,8 @@ outputs:
           - sysroot_linux-64 =2.17  # [linux]
           - zlib
           - bzip2
-          - libarrow =21.0.0
+          - apache-arrow-proc =*=cpu # chooses the CPU, not CUDA version
+          - libarrow
           - libparquet
         run:
           - libgomp  # [linux]
@@ -123,8 +124,6 @@ outputs:
           - {{ pin_compatible('qt6-main', max_pin='x.x') }}
           - {{ pin_compatible('libsvm', max_pin='x.x') }}
           - {{ pin_compatible('coinmp', max_pin='x.x') }}
-          - {{ pin_compatible('libarrow', max_pin='x') }}
-          - {{ pin_compatible('libparquet', max_pin='x') }}
           - libopenms {{ version }}
 
   - name: openms
@@ -159,7 +158,7 @@ outputs:
         - sysroot_linux-64 =2.17  # [linux]
         - zlib
         - bzip2
-        - libarrow =21.0.0
+        - libarrow
         - libparquet
       run:
         - libgomp  # [linux]
@@ -175,8 +174,6 @@ outputs:
         - {{ pin_compatible('qt6-main', max_pin='x.x') }}
         - {{ pin_compatible('libsvm', max_pin='x.x') }}
         - {{ pin_compatible('coinmp', max_pin='x.x') }}
-        - {{ pin_compatible('libarrow', max_pin='x') }}
-        - {{ pin_compatible('libparquet', max_pin='x') }}
 
     test:
       commands:
