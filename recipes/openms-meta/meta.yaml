@@ -65,7 +65,6 @@ requirements:
       - zlib
       - bzip2
       - apache-arrow-proc =*=cpu # chooses the CPU, not CUDA version
-      - libarrow
       - libparquet
     run:
       - libgomp  # [linux]
@@ -107,7 +106,6 @@ outputs:
           - zlib
           - bzip2
           - apache-arrow-proc =*=cpu # chooses the CPU, not CUDA version
-          - libarrow
           - libparquet
         run:
           - libgomp  # [linux]
@@ -160,7 +158,6 @@ outputs:
         - zlib
         - bzip2
         - apache-arrow-proc =*=cpu # chooses the CPU, not CUDA version
-        - libarrow
         - libparquet
       run:
         - libgomp  # [linux]
