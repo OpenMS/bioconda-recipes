@@ -2,7 +2,7 @@
 {% set version = "3.4.1" %}  # if ends with 'dev' it is considered a development release and pulled from GitHub
 
 # Note: to create a new release: 
-# - version number -> set to 0 for every new release.
+# - version number -> set to 0 for every NEW release.
 # - build number
 # - url and md5 
 # need to be updated.
@@ -64,6 +64,7 @@ requirements:
       - sysroot_linux-64 =2.17  # [linux]
       - zlib
       - bzip2
+      - apache-arrow-proc =*=cpu # chooses the CPU, not CUDA version
       - libarrow
       - libparquet
     run:
@@ -158,6 +159,7 @@ outputs:
         - sysroot_linux-64 =2.17  # [linux]
         - zlib
         - bzip2
+        - apache-arrow-proc =*=cpu # chooses the CPU, not CUDA version
         - libarrow
         - libparquet
       run:
