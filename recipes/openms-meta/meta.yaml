@@ -53,7 +53,8 @@ requirements:
       - libgomp  # [linux]
       - llvm-openmp  # [osx]
       - xerces-c
-      - boost-cpp
+      - libboost-devel
+      - libboost
       - eigen >=3.4.0
       - hdf5
       - libsvm
@@ -93,7 +94,8 @@ outputs:
           - libgomp  # [linux]
           - llvm-openmp  # [osx]
           - xerces-c
-          - boost-cpp
+          - libboost-devel
+          - libboost
           - eigen >=3.4.0
           - hdf5
           - libsvm
@@ -114,7 +116,7 @@ outputs:
           - {{ pin_compatible('llvm-openmp', max_pin='x.x') }}  # [osx]
           - {{ pin_compatible('zlib', max_pin='x.x') }}
           - {{ pin_compatible('xerces-c', max_pin='x.x') }}
-          - {{ pin_compatible('boost-cpp', max_pin='x.x') }}
+          # - {{ pin_compatible('boost-cpp', max_pin='x.x') }}
           - {{ pin_compatible('eigen', max_pin='x.x') }}
           - {{ pin_compatible('hdf5', max_pin='x.x') }}
           - {{ pin_compatible('bzip2', max_pin='x.x') }}
@@ -146,7 +148,8 @@ outputs:
         - libgomp  # [linux]
         - llvm-openmp  # [osx]
         - xerces-c
-        - boost-cpp
+        - libboost-devel
+        - libboost
         - eigen >=3.4.0
         - hdf5
         - libsvm
@@ -165,7 +168,7 @@ outputs:
         - {{ pin_compatible('llvm-openmp', max_pin='x.x') }}  # [osx]
         - {{ pin_compatible('zlib', max_pin='x.x') }}
         - {{ pin_compatible('xerces-c', max_pin='x.x') }}
-        - {{ pin_compatible('boost-cpp', max_pin='x.x') }}
+        # - {{ pin_compatible('boost-cpp', max_pin='x.x') }}
         - {{ pin_compatible('eigen', max_pin='x.x') }}
         - {{ pin_compatible('hdf5', max_pin='x.x') }}
         - {{ pin_compatible('bzip2', max_pin='x.x') }}
