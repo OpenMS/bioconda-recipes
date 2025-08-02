@@ -47,6 +47,7 @@ requirements:
       - automake
       - libtool
       - pkg-config
+      - make
       - qt6-main
       - sysroot_linux-64 =2.17  # [linux]
     host:
@@ -88,6 +89,7 @@ outputs:
           - cmake
           - sysroot_linux-64 =2.17  # [linux]
           - libtool
+          - make
           - pkg-config
           - qt6-main
         host:
@@ -137,6 +139,7 @@ outputs:
         - libtool
         - pkg-config
         - qt6-main
+        - make
       host:
         - {{ pin_subpackage('libopenms', exact=True) }}
       # conda apparently does not support run_exports in subpackages yet, otherwise having libopenms in host would be enough.
