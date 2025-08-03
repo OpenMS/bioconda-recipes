@@ -20,9 +20,16 @@ CURRENT_DIR=$(pwd)
 # Go to source directory
 cd $SRC_DIR
 
+if command -v tree &>/dev/null; then
+    tree -L 2 # Show only 2 levels deep to avoid excessive output
+fi
+
+cd OpenMS
 # Run git submodule command
 echo "Running git submodule command from: $(pwd)"
 git submodule update --init THIRDPARTY
+
+
 
 cd $CURRENT_DIR
 mkdir -p build
