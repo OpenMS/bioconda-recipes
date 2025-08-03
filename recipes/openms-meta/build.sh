@@ -18,16 +18,38 @@ echo "SRC_DIR: $SRC_DIR"
 CURRENT_DIR=$(pwd)
 
 # Go to source directory
+
 cd $SRC_DIR
+ls -la
 
-if command -v tree &>/dev/null; then
-    tree -L 2 # Show only 2 levels deep to avoid excessive output
+# Check if there's only a single directory (excluding . and ..) and cd to it if found
+
+# Find the directory containing THIRDPARTY and run git submodule command
+echo "Searching for THIRDPARTY directory..."
+THIRDPARTY_PARENT=$(find "$SRC_DIR" -name "THIRDPARTY" -type d 2>/dev/null | head -1)
+if [ -n "$THIRDPARTY_PARENT" ]; then
+    THIRDPARTY_PARENT_DIR=$(dirname "$THIRDPARTY_PARENT")
+    echo "Found THIRDPARTY at: $THIRDPARTY_PARENT"
+    echo "Parent directory: $THIRDPARTY_PARENT_DIR"
+    cd "$THIRDPARTY_PARENT_DIR"
+    echo "Running git submodule command from: $(pwd)"
+    git submodule update --init THIRDPARTY
+else
+    echo "THIRDPARTY directory not found, searching for .gitmodules file..."
+    GITMODULES_FILE=$(find "$SRC_DIR" -name ".gitmodules" -type f 2>/dev/null | head -1)
+    if [ -n "$GITMODULES_FILE" ]; then
+        GITMODULES_DIR=$(dirname "$GITMODULES_FILE")
+        echo "Found .gitmodules at: $GITMODULES_FILE"
+        echo "Git repository directory: $GITMODULES_DIR"
+        cd "$GITMODULES_DIR"
+        echo "Running git submodule command from: $(pwd)"
+        git submodule update --init THIRDPARTY
+    else
+        echo "Warning: Neither THIRDPARTY directory nor .gitmodules file found!"
+        echo "Attempting git submodule command from current directory: $(pwd)"
+        git submodule update --init THIRDPARTY || echo "Git submodule command failed"
+    fi
 fi
-
-cd OpenMS
-# Run git submodule command
-echo "Running git submodule command from: $(pwd)"
-git submodule update --init THIRDPARTY
 
 
 
