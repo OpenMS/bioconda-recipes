@@ -9,9 +9,25 @@ export CXXFLAGS=${CXXFLAGS//${USELESS}/}
 export LIBRARY_PATH=${PREFIX}/lib
 export LD_LIBRARY_PATH=${PREFIX}/lib
 #export DYLD_LIBRARY_PATH=${PREFIX}/lib
+
+
+echo "Current directory: $(pwd)"
+echo "SRC_DIR: $SRC_DIR"
+
+# Save current directory
+CURRENT_DIR=$(pwd)
+
+# Go to source directory
+cd $SRC_DIR
+
+# Run git submodule command
+echo "Running git submodule command from: $(pwd)"
 git submodule update --init THIRDPARTY
-mkdir build
+
+cd $CURRENT_DIR
+mkdir -p build
 cd build
+
 
 if [[ $(uname -s) == Darwin ]]; then
   RPATH='@loader_path/../lib'
