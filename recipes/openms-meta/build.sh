@@ -9,7 +9,7 @@ export CXXFLAGS=${CXXFLAGS//${USELESS}/}
 export LIBRARY_PATH=${PREFIX}/lib
 export LD_LIBRARY_PATH=${PREFIX}/lib
 #export DYLD_LIBRARY_PATH=${PREFIX}/lib
-
+git submodule update --init THIRDPARTY
 mkdir build
 cd build
 
