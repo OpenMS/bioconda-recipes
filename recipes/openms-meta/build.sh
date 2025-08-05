@@ -9,17 +9,7 @@ export CXXFLAGS=${CXXFLAGS//${USELESS}/}
 export LIBRARY_PATH=${PREFIX}/lib
 export LD_LIBRARY_PATH=${PREFIX}/lib
 #export DYLD_LIBRARY_PATH=${PREFIX}/lib
-
-
-echo "Current directory: $(pwd)"
-echo "SRC_DIR: $SRC_DIR"
-
-# Save current directory
-CURRENT_DIR=$(pwd)
-
-cd .. #OPENMS DIR
-
-git submodule update --init THIRDPARTY
+# All we need to do is check out the OPENMS find binary script and figure out how to make it actually find it...
 
 
 cd $CURRENT_DIR
