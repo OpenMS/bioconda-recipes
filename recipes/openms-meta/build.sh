@@ -12,7 +12,6 @@ export LD_LIBRARY_PATH=${PREFIX}/lib
 # All we need to do is check out the OPENMS find binary script and figure out how to make it actually find it...
 
 
-cd $CURRENT_DIR
 mkdir -p build
 cd build
 
