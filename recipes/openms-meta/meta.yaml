@@ -191,6 +191,15 @@ outputs:
     requirements:
       host:
         - {{ pin_subpackage('openms', exact=True) }}
+        - comet-ms ==2024011
+        - luciphor2 ==2020_04_03
+        - msgf_plus ==2024.03.26
+        - percolator ==3.7.1
+        - sirius-ms >=6.1.0
+        - thermorawfileparser ==1.4.3
+        - sage-proteomics ==0.14.7
+        - gnuplot
+        - r-gplots
       run:
         - {{ pin_subpackage('openms', exact=True) }}
         - comet-ms ==2024011
