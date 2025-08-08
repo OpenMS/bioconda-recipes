@@ -11,7 +11,55 @@ export LD_LIBRARY_PATH=${PREFIX}/lib
 #export DYLD_LIBRARY_PATH=${PREFIX}/lib
 # All we need to do is check out the OPENMS find binary script and figure out how to make it actually find it...
 
+# We're currently in openms (I think), and want to be in openms/THIRDPARTY
 
+if [ -d "THIRDPARTY" ]; then
+  cd THIRDPARTY
+else
+  mkdir THIRDPARTY
+  cd THIRDPARTY
+fi
+# Now we're in openms/THIRDPARTY
+
+if ! command -v curl &> /dev/null; then
+    echo "curl not found, installing..."
+    if command -v apt-get &> /dev/null; then
+        apt-get update && apt-get install -y curl
+    fi
+fi
+
+curl -L -o THIRDPARTY-release-3.4.0.tar.gz https://api.github.com/repos/OpenMS/THIRDPARTY/tarball/release/3.4.0
+tar -xzf THIRDPARTY-release-3.4.0.tar.gz
+cd OpenMS-THIRDPARTY-*/Linux/x86_64/
+
+# tree at ${THIRDPARTY_PREFIX} shows:
+# ├── Comet
+# │ ├── comet.exe
+# │ ├── README.md
+# │ └── README.txt
+# ├── MaRaCluster
+# │ └── maracluster
+# ├── Percolator
+# │ └── percolator
+# ├── Sage
+# │ ├── LICENSE
+# │ ├── README.md
+# │ └── sage
+# ├── SpectraST
+# │   ├── README
+# │   └── spectrast
+# └── XTandem
+#     └── tandem.exe
+
+# Now we have to MANUALLY add this to PATH since cmake's find_program only searches well defined paths, not prefixes.
+# See how in third_party_tests.cmake, we have find_program(${varname} ${binaryname} PATHS ENV PATH)? It just means cmake looks in PATH.
+to_export_linux="${PWD}/Comet/comet.exe:${PWD}/MaRaCluster/maracluster:${PWD}/Percolator/percolator:${PWD}/Sage/sage:${PWD}/SpectraST/spectrast:${PWD}/XTandem/tandem.exe"
+cd ../../All
+to_export_all="${PWD}/ThermoRawFileParser/ThermoRawFileParser.exe:${PWD}/LuciPHOr2/luciphor2.jar:${PWD}/MSGFPlus/MSGFPlus.jar" # no idea where msfragger jar is...
+export PATH=${to_export_linux}:${to_export_all}:$PATH
+echo $PATH  # Debug: verify PATH contains the tools
+cd $SRC_DIR
+"
 mkdir -p build
 cd build
 
@@ -35,7 +83,7 @@ cmake .. \
   -DCMAKE_BUILD_TYPE="Release" \
   -DCMAKE_OSX_SYSROOT=${CONDA_BUILD_SYSROOT} \
   -DCMAKE_MACOSX_RPATH=ON \
-  -DCMAKE_PREFIX_PATH=${PREFIX}:${CONDA_PREFIX}:"${CONDA_PREFIX}/lib/cmake/Qt6/" \
+  -DCMAKE_PREFIX_PATH=${PREFIX}:${CONDA_PREFIX}:"${CONDA_PREFIX}/lib/cmake/Qt6/":${THIRDPARTY_PREFIX} \
   -DCMAKE_INSTALL_PREFIX=${PREFIX} \
   -DCMAKE_INSTALL_RPATH=${RPATH} \
   -DCMAKE_INSTALL_NAME_DIR="@rpath" \
