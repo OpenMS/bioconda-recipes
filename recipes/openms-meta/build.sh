@@ -155,9 +155,40 @@ chmod +x LuciPHOr2/* MSGFPlus/* ThermoRawFileParser/* # let's just set all execu
 #     └── zlib.net.dll
 
 to_export_all="${PWD}/ThermoRawFileParser:${PWD}/LuciPHOr2:${PWD}/MSGFPlus" # no idea where msfragger jar is...
-export PATH=${to_export_linux}:${to_export_all}:$PATH
 echo "PATH after adding third party tools:"
 echo $PATH  # Debug: verify PATH contains the tools
+
+# That worked! Now let's go get the rest of them: MSFragger, Novor, CometAdapter.
+
+cd $SRC_DIR/THIRDPARTY
+curl -L -o novor_academic_latest.zip https://github.com/BioContainers/software-archive/releases/download/NovoR/novor_academic_latest.zip
+
+# Check if unzip is available, install if not
+if ! command -v unzip &> /dev/null; then
+    echo "unzip not found, installing..."
+    if command -v apt-get &> /dev/null; then
+        apt-get update && apt-get install -y unzip
+    elif command -v yum &> /dev/null; then
+        yum install -y unzip
+    else
+        echo "Error: Cannot install unzip - no package manager found"
+        exit 1
+    fi
+fi
+
+# Extract to novor directory
+mkdir -p novor
+unzip -q novor_academic_latest.zip -d novor
+to_export_novor="${PWD}/novor/lib"
+
+cd $SRC_DIR/THIRDPARTY
+
+# MsFragger
+
+
+export PATH=${to_export_linux}:${to_export_all}:${to_export_novor}:$PATH
+
+
 cd $SRC_DIR
 
 mkdir -p build
