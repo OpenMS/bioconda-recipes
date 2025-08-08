@@ -51,12 +51,112 @@ cd OpenMS-THIRDPARTY-*/Linux/x86_64/
 # └── XTandem
 #     └── tandem.exe
 
+
+
 # Now we have to MANUALLY add this to PATH since cmake's find_program only searches well defined paths, not prefixes.
 # See how in third_party_tests.cmake, we have find_program(${varname} ${binaryname} PATHS ENV PATH)? It just means cmake looks in PATH.
-to_export_linux="${PWD}/Comet/comet.exe:${PWD}/MaRaCluster/maracluster:${PWD}/Percolator/percolator:${PWD}/Sage/sage:${PWD}/SpectraST/spectrast:${PWD}/XTandem/tandem.exe"
+
+
+# On Unix, find_program mimics the shell’s path search and requires the file to be executable, so it won’t find files without the executable
+# bit set. But on Windows, find_program looks at file extensions like .exe, .com, etc., and does not need the executable bit.
+
+chmod +x Comet/comet.exe MaRaCluster/maracluster Percolator/percolator Sage/sage SpectraST/spectrast XTandem/tandem.exe
+
+to_export_linux="${PWD}/Comet:${PWD}/MaRaCluster:${PWD}/Percolator:${PWD}/Sage:${PWD}/SpectraST:${PWD}/XTandem"
 cd ../../All
-to_export_all="${PWD}/ThermoRawFileParser/ThermoRawFileParser.exe:${PWD}/LuciPHOr2/luciphor2.jar:${PWD}/MSGFPlus/MSGFPlus.jar" # no idea where msfragger jar is...
+chmod +x LuciPHOr2/* MSGFPlus/* ThermoRawFileParser/* # let's just set all executable for now. Doesn't hurt. 
+# this is not necessary for jars and dlls (luciphor/msgfplus)
+# check out the implementation in the test cmake file
+
+# output of tree .
+
+# ├── LuciPHOr2
+# │   ├── LICENSE.txt
+# │   ├── luciphor2.jar
+# │   └── README.txt
+# ├── MSFragger
+# │   ├── License.txt
+# │   └── README.MD
+# ├── MSGFPlus
+# │   ├── LICENSE.txt
+# │   ├── Mods.txt
+# │   ├── MSGFPlus.jar
+# │   ├── README.md
+# │   └── README.txt
+# └── ThermoRawFileParser
+#     ├── AWS.Logger.Core.dll
+#     ├── AWS.Logger.Core.pdb
+#     ├── AWSSDK.CloudWatchLogs.dll
+#     ├── AWSSDK.CloudWatchLogs.pdb
+#     ├── AWSSDK.Core.dll
+#     ├── AWSSDK.Core.pdb
+#     ├── AWSSDK.S3.dll
+#     ├── AWSSDK.S3.pdb
+#     ├── IronSnappy.dll
+#     ├── LICENSE
+#     ├── log4net.config
+#     ├── log4net.dll
+#     ├── MathNet.Numerics.dll
+#     ├── Mono.Options.dll
+#     ├── Mono.Unix.dll
+#     ├── Mono.Unix.dll.config
+#     ├── Namotion.Reflection.dll
+#     ├── Newtonsoft.Json.dll
+#     ├── NJsonSchema.dll
+#     ├── NUnit3.TestAdapter.dll
+#     ├── NUnit3.TestAdapter.pdb
+#     ├── nunit.engine.api.dll
+#     ├── nunit.engine.core.dll
+#     ├── nunit.engine.dll
+#     ├── nunit.framework.dll
+#     ├── OpenMcdf.dll
+#     ├── OpenMcdf.Extensions.dll
+#     ├── packages
+#     │   └── Mono.Unix.7.1.0-final.1.21458.1
+#     │       └── lib
+#     │           └── net45
+#     │               └── Mono.Unix.dll.config
+#     ├── Parquet.dll
+#     ├── runtimes
+#     │   ├── android-arm
+#     │   │   └── libMono.Unix.so
+#     │   ├── android-arm64
+#     │   │   └── libMono.Unix.so
+#     │   ├── android-x64
+#     │   │   └── libMono.Unix.so
+#     │   ├── android-x86
+#     │   │   └── libMono.Unix.so
+#     │   ├── linux-arm
+#     │   │   └── libMono.Unix.so
+#     │   ├── linux-arm64
+#     │   │   └── libMono.Unix.so
+#     │   ├── linux-x64
+#     │   │   └── libMono.Unix.so
+#     │   ├── osx-arm64
+#     │   │   └── libMono.Unix.dylib
+#     │   └── osx-x64
+#     │       └── libMono.Unix.dylib
+#     ├── System.Buffers.dll
+#     ├── System.IO.FileSystem.AccessControl.dll
+#     ├── System.Memory.dll
+#     ├── System.Numerics.Vectors.dll
+#     ├── System.Runtime.CompilerServices.Unsafe.dll
+#     ├── System.Security.AccessControl.dll
+#     ├── System.Security.Principal.Windows.dll
+#     ├── System.Text.Encoding.CodePages.dll
+#     ├── System.ValueTuple.dll
+#     ├── testcentric.engine.metadata.dll
+#     ├── ThermoFisher.CommonCore.Data.dll
+#     ├── ThermoFisher.CommonCore.RawFileReader.dll
+#     ├── THERMO_LICENSE
+#     ├── ThermoRawFileParser.exe
+#     ├── ThermoRawFileParser.exe.config
+#     ├── ThermoRawFileParser.pdb
+#     └── zlib.net.dll
+
+to_export_all="${PWD}/ThermoRawFileParser:${PWD}/LuciPHOr2:${PWD}/MSGFPlus" # no idea where msfragger jar is...
 export PATH=${to_export_linux}:${to_export_all}:$PATH
+echo "PATH after adding third party tools:"
 echo $PATH  # Debug: verify PATH contains the tools
 cd $SRC_DIR
 
