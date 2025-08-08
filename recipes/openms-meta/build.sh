@@ -59,7 +59,7 @@ to_export_all="${PWD}/ThermoRawFileParser/ThermoRawFileParser.exe:${PWD}/LuciPHO
 export PATH=${to_export_linux}:${to_export_all}:$PATH
 echo $PATH  # Debug: verify PATH contains the tools
 cd $SRC_DIR
-"
+
 mkdir -p build
 cd build
 
