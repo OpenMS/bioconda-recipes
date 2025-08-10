@@ -11,6 +11,10 @@ export LD_LIBRARY_PATH=${PREFIX}/lib
 #export DYLD_LIBRARY_PATH=${PREFIX}/lib
 # All we need to do is check out the OPENMS find binary script and figure out how to make it actually find it...
 
+# @jpfeuffer below is my attempt at trying to figure out why build.ninja wasn't fully generated. 
+# I was under the impression that it was because src/tests/topp/THIRDPARTY/third_party_tests.cmake wasn't including the thirdparty modules, so here's my attempt at curling them from the internet. 
+# Not sure that that was the actual reason though
+
 # We're currently in openms (I think), and want to be in openms/THIRDPARTY
 
 if [ -d "THIRDPARTY" ]; then
