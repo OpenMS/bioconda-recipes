@@ -212,6 +212,7 @@ LDFLAGS='-Wl,-rpath,${RPATH}'
 # Note: Cmake could not find Qt6Config.cmake on fedora without adding those prefix paths
 
 cmake .. \
+  -G Ninja 
   -DOPENMS_GIT_SHORT_REFSPEC="release/${PKG_VERSION}" \
   -DOPENMS_GIT_SHORT_SHA1="d36094e" \
   -DOPENMS_CONTRIB_LIBS="$SRC_DIR/contrib-build" \
@@ -234,6 +235,6 @@ cmake .. \
   -DBUILD_EXAMPLES=OFF
 
 # limit concurrent build jobs due to memory usage on CI
-make -j1 OpenMS TOPP
+ninja -j1 OpenMS TOPP
 # The subpackages will do the installing of the parts
-#make install
+#ninja install
