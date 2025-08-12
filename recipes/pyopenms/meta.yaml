@@ -54,7 +54,7 @@ requirements:
     - xerces-c
     - libboost
     - libboost-devel
-    - qt-main >=5.15.8 # qt6-main gets installed automatically.
+    - qt6-main
     - eigen >=3.3.4
     - python >=3.9,<3.13
     - numpy >=1.23.*
