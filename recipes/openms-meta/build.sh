@@ -212,7 +212,7 @@ LDFLAGS='-Wl,-rpath,${RPATH}'
 # Note: Cmake could not find Qt6Config.cmake on fedora without adding those prefix paths
 
 cmake .. \
-  -G Ninja 
+  -G Ninja \
   -DOPENMS_GIT_SHORT_REFSPEC="release/${PKG_VERSION}" \
   -DOPENMS_GIT_SHORT_SHA1="d36094e" \
   -DOPENMS_CONTRIB_LIBS="$SRC_DIR/contrib-build" \
