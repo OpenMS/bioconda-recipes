@@ -1,5 +1,5 @@
 {% set name = "pyopenms" %}
-{% set version = "3.2.0" %} # if ends with 'dev' it is considered a development release and pulled from GitHub
+{% set version = "3.4.1" %} # if ends with 'dev' it is considered a development release and pulled from GitHub
 package:
   name: {{ name|lower  }}
   version: {{ version  }}
@@ -17,7 +17,7 @@ source:
 
 build:
   skip: True  # [py2k or osx]
-  number: 1
+  number: 0
   run_exports:
     - {{ pin_subpackage("pyopenms", max_pin="x.x") }}  
 
@@ -31,12 +31,11 @@ requirements:
     - eigen >=3.3.4
     - libopenms >={{ version }}
     - llvm-openmp # [osx]
-    - libsvm
+    - libsvm >=335
     - xerces-c
-    - libboost
     - libboost-devel
-    - qt-main >=5.15.8
-    - python >=3.9,<3.13
+    - qt6-main
+    - python ">=3.9,<3.13"
     - cython >=0.25.2
     - autowrap >=0.22.10
     - setuptools
@@ -52,11 +51,7 @@ requirements:
     - llvm-openmp # [osx]
     - libsvm >=335
     - xerces-c
-    - libboost
-    - libboost-devel
-    - qt6-main
-    - eigen >=3.3.4
-    - python >=3.9,<3.13
+    - python ">=3.9,<3.13"
     - numpy >=1.23.*
     - pandas
     - matplotlib-base

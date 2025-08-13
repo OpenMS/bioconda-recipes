@@ -1,12 +1,20 @@
 {% set name = "OpenMS" %}
 {% set version = "3.4.1" %}  # if ends with 'dev' it is considered a development release and pulled from GitHub
 
+# Note: to create a new release: 
+# - version number -> set to 0 for every NEW release.
+# - build number
+# - url and md5 
+# need to be updated.
+
+
 package:
   name: {{ name|lower }}-meta
   version: {{ version }}
 
 {% if 'dev' in version %}
 source:
+  # Remove trailing zeros for major releases
   git_url: https://github.com/OpenMS/OpenMS.git
   git_rev: release/{{ version }}
   md5: unused
@@ -22,8 +30,22 @@ source:
   md5: 8d0b4d1d333f069959f7d5ff1c77a90f
 {% endif %}
 
+# The idea here is to make one set of packages from which all subpackages will take from.
+
+# The key difference, and why you'll see qt6,libboost,etc. in host and not run,
+# is that these packages are dynamically linked. Ie. they have .a or .dll extensions on their libs
+# rather than .so (like libgomp or llvm-openmp if you look them up) which are statically linked.
+# Their libraries from # include <file> must be included in both host and run.
+
+
 build:
   number: 1
+
+# Try this when building with GUI
+#extra:
+#  container:
+#    extended-base: True
+
 
 requirements:
   # Shared build tools
@@ -34,7 +56,7 @@ requirements:
     - pkg-config
     - sysroot_linux-64 =2.17  # [linux]
   # Shared host dependencies (used at link time)
-  host:
+  host: 
     - qt6-main
     - libgomp  # [linux]
     - llvm-openmp  # [osx]
@@ -56,7 +78,7 @@ requirements:
     - libgomp  # [linux]
     - llvm-openmp  # [osx]
 
-test:
+test: 
   commands:
     - conda inspect linkages -p $PREFIX $PKG_NAME  # [not win]
     - conda inspect objects -p $PREFIX $PKG_NAME  # [osx]
@@ -86,7 +108,8 @@ outputs:
         - {{ pin_compatible('libsvm', max_pin='x.x') }}
         - {{ pin_compatible('coinmp', max_pin='x.x') }}
         - libopenms {{ version }}
-
+# if we make an unnamed "subpackage" at the top, we can just have everything pull from there.
+# Makes maintenance easier, but no real difference in build time apparently.
   - name: openms
     version: {{ version }}
     script: package_openms-tools.sh
@@ -108,7 +131,8 @@ outputs:
     version: {{ version }}
     build:
       skip: True  # [osx]
-    requirements:
+
+    requirements: # no build reqs, these aren't 
       host:
         - {{ pin_subpackage('openms', exact=True) }}
       run:
