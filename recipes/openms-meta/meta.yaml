@@ -12,14 +12,13 @@ package:
   name: {{ name|lower }}-meta
   version: {{ version }}
 
-{% if 'dev' in version %}
 source:
+{% if 'dev' in version %}
   # Remove trailing zeros for major releases
   git_url: https://github.com/OpenMS/OpenMS.git
   git_rev: release/{{ version }}
   md5: unused
 {% else %}
-source:
   {% set version_parts = version.split('.') %}
   {% if version_parts|length == 3 and version_parts[2] == '0' %}
     {% set short_version = version_parts[0] ~ '.' ~ version_parts[1] %}
