@@ -24,6 +24,7 @@ fi
 LDFLAGS='-Wl,-rpath,${RPATH}'
 
 cmake ../src/pyOpenMS \
+  -G Ninja \
   -DOPENMS_GIT_SHORT_REFSPEC="release/${PKG_VERSION}" \
   -DOPENMS_GIT_SHORT_SHA1="b59e0c3" \
   -DCMAKE_BUILD_TYPE="Release" \
