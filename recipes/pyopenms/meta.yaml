@@ -30,7 +30,7 @@ requirements:
     - qt6-main
     - python >=3.9,<3.12
     - cython >=0.25.2,<3.1
-    - autowrap >=0.22.10
+    - autowrap >=0.22.10, <0.23
     - setuptools
     - wheel
     - pip
