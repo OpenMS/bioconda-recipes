@@ -25,11 +25,11 @@ requirements:
     - eigen >=3.3.4
     - libopenms >={{ version }}
     - llvm-openmp # [osx]
-    - libsvm >=335
-    - xerces-c >=3.2
+    - libsvm
+    - xerces-c
     - libboost-devel
     - qt6-main
-    - python
+    - python >=3.9,<3.12
     - cython >=0.25.2,<3.1
     - autowrap >=0.22.10
     - setuptools
@@ -42,8 +42,8 @@ requirements:
   run: # run_exports in libopenms should take care of the libraries. But it does not because of bugs. So copy everthing again and again
     - libopenms >={{ version }}
     - llvm-openmp # [osx]
-    - libsvm >=335
-    - xerces-c >=3.2
+    - libsvm
+    - xerces-c
     - python
     - numpy >=1.23.*
     - pandas
