@@ -21,6 +21,7 @@ requirements:
     - cmake
     - sysroot_linux-64 =2.17 # [linux]
     - ninja
+    - pytest
   host:
     - eigen >=3.3.4
     - libopenms >={{ version }}
@@ -39,6 +40,7 @@ requirements:
     - sysroot_linux-64 =2.17 # [linux]
     - apache-arrow-proc =*=cpu
     - libparquet
+    - pytest
 
   run: # run_exports in libopenms should take care of the libraries. But it does not because of bugs. So copy everthing again and again
     - libopenms >={{ version }}
