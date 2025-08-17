@@ -25,7 +25,6 @@ requirements:
     - eigen >=3.3.4
     - libopenms >={{ version }}
     - llvm-openmp # [osx]
-    - libsvm >=335,<400
     - xerces-c
     - qt6-main
     - python >=3.9,<3.12
@@ -44,7 +43,6 @@ requirements:
   run: # run_exports in libopenms should take care of the libraries. But it does not because of bugs. So copy everthing again and again
     - libopenms >={{ version }}
     - llvm-openmp # [osx]
-    - libsvm >=335,<400
     - xerces-c
     - python
     - numpy >=1.23.*
