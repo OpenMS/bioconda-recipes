@@ -35,7 +35,7 @@ requirements:
     - xerces-c
     - qt6-main
     - python >=3.9,<3.12
-    - cython >=0.25.2,<3.1
+    - cython >=0.25.2
     - autowrap >=0.22.10
     - setuptools
     - wheel
