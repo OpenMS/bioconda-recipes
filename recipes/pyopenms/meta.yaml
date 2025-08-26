@@ -27,16 +27,15 @@ requirements:
     - cmake
     - sysroot_linux-64 =2.17 # [linux]
     - ninja
-    - pytest
   host:
     - eigen >=3.3.4
     - libopenms >={{ version }}
     - llvm-openmp # [osx]
     - xerces-c
     - qt6-main
-    - python >=3.9,<3.12
+    - python >=3.9
     - cython >=3.1.0
-    - autowrap >=0.22.10
+    - autowrap >=0.23.0
     - setuptools
     - wheel
     - pip
@@ -46,7 +45,6 @@ requirements:
     - sysroot_linux-64 =2.17 # [linux]
     - apache-arrow-proc =*=cpu
     - libparquet
-    - pytest
 
   run: # run_exports in libopenms should take care of the libraries. But it does not because of bugs. So copy everthing again and again
     - libopenms >={{ version }}
@@ -58,6 +56,8 @@ requirements:
     - matplotlib-base
     - sysroot_linux-64 =2.17 # [linux]
 test:
+  requires:
+    - pytest
   commands:
     - python -c "import pyopenms; print(pyopenms.__version__)"
     # We cant use the PYTHON variable since it does not exist on the biocontainer?!
