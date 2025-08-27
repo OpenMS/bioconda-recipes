@@ -45,7 +45,9 @@ requirements:
       - coin-or-cgl
       - coin-or-cbc
       - eigen >=3.4.0
+      - libarrow
       - libboost-devel
+      - libparquet
       - libsvm
       - qt6-main
       - xerces-c
