@@ -43,7 +43,7 @@ cmake -S ../src/pyOpenMS -B . -G Ninja -DCMAKE_BUILD_TYPE="Release" \
 
 # limit parallel jobs to 1 for memory usage since pyopenms has huge cython generated cpp files
 #cmake --build . --clean-first --target pyopenms -j 1
-ninja pyopenms -j"${CPU_COUNT}"
+ninja pyopenms -j2 # Github actions is the biggest trash software in the world
 
 echo "wheels are in `find . | grep whl`"  >&2
 ${PYTHON} -m pip install ./pyOpenMS/dist/*.whl --no-build-isolation --no-deps --no-cache-dir --use-pep517 --no-binary=pyopenms -vvv
