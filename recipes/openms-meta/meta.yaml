@@ -46,7 +46,7 @@ requirements:
       - coin-or-cgl
       - coin-or-cbc
       - eigen >=3.4.0
-      - libarrow
+      - libarrow =21  # Just to reduce build matrix/time. You can change it from time to time to build for other versions
       - libboost-devel
       - libparquet
       - libsvm
