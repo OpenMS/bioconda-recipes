@@ -12,6 +12,7 @@ source:
   # Note: This will only work correctly as long as the current X.Y.Zdev version is actually the latest
   # Retrospective builds not supported.
   git_rev: develop
+  git_depth: 1
   md5: unused
 {% else %}
 source:
