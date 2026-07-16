@@ -1,5 +1,5 @@
 {% set name = "pyopenms" %}
-{% set version = "3.5.0" %}  # if ends with 'dev' it is considered a development release and pulled from GitHub
+{% set version = "3.6.0dev" %}  # if ends with 'dev' it is considered a development release and pulled from GitHub
 
 package:
   name: {{ name }}
@@ -34,7 +34,9 @@ requirements:
     - wheel
     - cython >=3.2
     - libopenms =={{ version }}
-    - autowrap >=0.24.0,<0.25
+    - libarrow =23=*_cpu
+    - libparquet
+
     - libboost-headers  # autowrap depends on boost for shared_ptr (if not explicitly disabled by our build scripts, or if we allow it to use autowraps own copy of boost headers) see https://github.com/OpenMS/OpenMS/issues/8184
     - numpy >=2.0
     - pandas
@@ -48,6 +50,8 @@ requirements:
   run:
     - python
     - libopenms =={{ version }}
+    - {{ pin_compatible('libarrow', max_pin='x.x') }}
+    - {{ pin_compatible('libparquet', max_pin='x.x') }}
     - numpy >=2.0
     - pandas
     - matplotlib-base
