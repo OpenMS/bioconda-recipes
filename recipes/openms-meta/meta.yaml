@@ -224,6 +224,10 @@ extra:
   skip-lints:
     - build_number_needs_reset  # our linter has some issues with multi-package recipes as it seems
     - missing_run_exports  # linter seems expect run_export keyword for meta-package in multi-package
+    # bioconda-utils >=5.0.0 lints per output. The openms-thirdparty output has no
+    # compiler, only run deps, so the linter wants it noarch. It cannot be: it
+    # pins the arch-specific openms build exactly and is skipped on osx.
+    - should_be_noarch_generic
     {% if 'dev' in version %}
     - uses_vcs_url
     {% endif %}
