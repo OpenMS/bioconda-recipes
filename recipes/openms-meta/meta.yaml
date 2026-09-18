@@ -114,6 +114,16 @@ outputs:
       commands:
         - command -v readelf >/dev/null 2>&1 && readelf -d ${PREFIX}/lib/libOpenMS.so | grep 'R.*PATH' || echo "Mulled container.. skip tests" # [linux]
         - command -v otool >/dev/null 2>&1 && otool -L ${PREFIX}/lib/libOpenMS.dylib || echo "Mulled container.. skip tests"  # [osx]
+        # Both layers of the installed OpenMS package have to be here: the core library
+        # and the CLI layer (libOpenMS_CLI, the TOPP tool framework). The TOPP tools of
+        # the `openms` output link libOpenMS_CLI and find it through their exact pin on
+        # this package, so a package_libopenms.sh that misses the library_cli component
+        # only fails much later, as a loader error when a TOPP tool is started.
+        - test -f ${PREFIX}/lib/libOpenMS_CLI.so  # [linux]
+        - test -f ${PREFIX}/lib/libOpenMS_CLI.dylib  # [osx]
+        # find_package(OpenMS COMPONENTS CLI) needs the exported targets of both layers.
+        - test -f ${PREFIX}/lib/cmake/OpenMS/OpenMSTargets.cmake
+        - test -f ${PREFIX}/lib/cmake/OpenMS/OpenMSCLITargets.cmake
     
     about:
       home: "https://github.com/OpenMS/OpenMS"
