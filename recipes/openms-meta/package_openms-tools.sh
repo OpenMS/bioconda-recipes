@@ -12,7 +12,16 @@
 # The CLI layer belongs to this package and not to libopenms: libopenms is the
 # core layer that pyopenms builds against, and it stays free of the
 # command-line framework.
-for component in library_cli Applications; do
+#
+# Since this package owns the CLI layer, it also ships that layer's development
+# files: the headers of the tool framework (OpenMS_CLI_headers, e.g.
+# OpenMS/APPLICATIONS/TOPPBase.h) and its exported CMake targets (cmake_cli,
+# lib/cmake/OpenMS/OpenMSCLITargets.cmake). OpenMSConfig.cmake from libopenms
+# picks the latter up when present, so with this package installed
+#   find_package(OpenMS CONFIG REQUIRED COMPONENTS CLI)
+# provides OpenMS::OpenMS_CLI and external projects can build their own
+# TOPP-style tools against the conda installation.
+for component in library_cli OpenMS_CLI_headers cmake_cli Applications; do
   if [[ "$target_platform" == osx-* ]]; then
     # Conda adds the $PREFIX/lib RPATH already in LDFLAGS. We could remove it there before building.
     # For now just ignore the meaningless warning.
