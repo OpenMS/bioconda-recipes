@@ -165,13 +165,16 @@ outputs:
         - command -v otool >/dev/null 2>&1 && otool -L ${PREFIX}/bin/OpenMSInfo || echo "Mulled container.. skip tests"  # [osx]
         - OPENMS_DATA_PATH=${PREFIX}/share/OpenMS/ ${PREFIX}/bin/OpenMSInfo
         - OPENMS_DATA_PATH=${PREFIX}/share/OpenMS/ ${PREFIX}/bin/FileMerger --help
+        # development files of the CLI layer (see package_openms-tools.sh)
+        - test -f ${PREFIX}/include/OpenMS/APPLICATIONS/TOPPBase.h
+        - test -f ${PREFIX}/lib/cmake/OpenMS/OpenMSCLITargets.cmake
 
     about:
       home: "https://github.com/OpenMS/OpenMS"
       license: "BSD-3-Clause"
       license_family: BSD
       license_file: LICENSE
-      summary: "The OpenMS TOPP tools (without GUI components and adapted thirdparty tools)."
+      summary: "The OpenMS TOPP tools (without GUI components and adapted thirdparty tools) and the TOPP tool framework library OpenMS_CLI with its headers, for developing own tools."
       dev_url: "https://github.com/OpenMS/OpenMS"
       doc_url: "https://openms.readthedocs.io/en/latest/index.html"
 
