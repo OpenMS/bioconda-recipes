@@ -24,6 +24,10 @@ cd build
 # Regarding PY_NUM_MODULES: This is a tradeoff between compile time and RAM usage.
 #  We do not recommend less than 12 for current CI runners. You can try to decrease when they get more RAM
 #  or faster CPUs.
+# Regarding PYOPENMS_SPLIT_MODE: pyOpenMS defaults to nanobind's split mode (OpenMS/OpenMS#10140), whose abi3
+#  modules import nanobind's runtime from the separate nanobind-backend package at load time. That package is
+#  only published on PyPI, not on conda-forge, so the modules cannot be imported in a conda environment. Conda
+#  builds one package per Python version anyway, so build interpreter-specific modules with the runtime linked in.
 cmake -S ../src/pyOpenMS -B . -G Ninja -DCMAKE_BUILD_TYPE="Release" \
 	-DOPENMS_GIT_SHORT_REFSPEC="release/${PKG_VERSION}" -DOPENMS_GIT_SHORT_SHA1="c1370fb" \
  	-DOPENMS_CONTRIB_LIBS="SILENCE_WARNING_SINCE_NOT_NEEDED" \
@@ -31,6 +35,7 @@ cmake -S ../src/pyOpenMS -B . -G Ninja -DCMAKE_BUILD_TYPE="Release" \
     -DCMAKE_BUILD_RPATH="$BUILD_PREFIX/lib" -DCMAKE_INSTALL_RPATH="${PREFIX}/lib" -DCMAKE_INSTALL_REMOVE_ENVIRONMENT_RPATH=ON \
     -DPython_EXECUTABLE="${PYTHON}" -DPython_FIND_STRATEGY="LOCATION" -DPY_NUM_MODULES=16 \
     -DNO_DEPENDENCIES=ON -DNO_SHARE=ON \
+    -DPYOPENMS_SPLIT_MODE=OFF \
 	-DCMAKE_OSX_SYSROOT=${CONDA_BUILD_SYSROOT} \
  	${PLATFORM_CMAKE_EXTRAS}
 
