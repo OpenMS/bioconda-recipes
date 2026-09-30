@@ -14,7 +14,8 @@ if [[ "$CXX" == *gnu-c++* ]]; then
   #export LDFLAGS="-v ${LDFLAGS}"
 fi
 
-mkdir build
+# The release tarball ships an empty build/ directory.
+mkdir -p build
 cd build
 
 # Set INSTALL_RPATH to PREFIX such that there are no warnings during linkage fixing of conda-build
