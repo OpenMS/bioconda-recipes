@@ -150,7 +150,9 @@ outputs:
         # Since 3.6.0 the TOPP tools link only libOpenMS_CLI/libOpenMS (OpenMS#10247). Arrow/Parquet stay here so
         # their run_exports pin the same versions as libopenms. No pin_compatible() for them: it multiplied the
         # build by the four libarrow variants of the global pinning (4 builds of openms 3.5.0 per platform).
-        - libarrow =23=*_cpu
+        # "23.* *_cpu", not "=23=*_cpu": with a build string, conda reads "=23" as "==23" (23.0.0 only);
+        # merged with libopenms' run dependency libarrow >=23.0.1,<23.1.0a0 that is unsatisfiable.
+        - libarrow 23.* *_cpu
         - libparquet =23
       run:
         # conda does not support run_exports from outputs in other outputs of the same package yet,
@@ -193,7 +195,8 @@ outputs:
        - comet-ms ==2024011
        - luciphor2 ==2020_04_03
        - msgf_plus ==2024.03.26
-       - percolator ==3.7.1
+       # 3.7.1 exists only for xerces-c 3.2 (<3.3), libopenms 3.6.0 needs xerces-c 3.3; 3.9 does not use xerces-c
+       - percolator ==3.9
        - sirius-ms >=6.1.0
        - thermorawfileparser ==1.4.3
        - sage-proteomics ==0.14.7
