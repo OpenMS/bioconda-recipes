@@ -1,6 +1,13 @@
 #!/bin/bash
 
 export PLATFORM_CMAKE_EXTRAS=""
+# Nightly builds of develop keep Bruker .d support (opentims, fetched at configure time), as
+# before: pyOpenMS on develop includes OpenMS/FORMAT/BrukerTimsFile.h unconditionally, which
+# libopenms without opentims does not install. Release builds turn it off (-DWITH_OPENTIMS=OFF
+# below, which this later -D overrides) and patch pyOpenMS instead.
+if [[ "${PKG_VERSION}" == *dev* ]]; then
+  export PLATFORM_CMAKE_EXTRAS="-DWITH_OPENTIMS=ON"
+fi
 if [[ "$CXX" == *gnu-c++* ]]; then
   # For stuff like this GCC bug (especially on ARM) https://gcc.gnu.org/bugzilla/show_bug.cgi?id=111516
   echo "Detected gcc: ignoring some compile warnings."
