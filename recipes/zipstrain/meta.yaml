@@ -1,5 +1,5 @@
 {% set name = "zipstrain" %}
-{% set version = "1.0.0" %}   
+{% set version = "1.2.2" %}   
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 1424ac24ed5816c96ca59762e22fb4ae857f4c975b3e64df975d525c9698d4a8
+  sha256: 9dce7ffa2637dba8b46456fdf6ee76ed3017e33003f0cbf7b4fe14b0ea66f350
 
 build:
   noarch: python

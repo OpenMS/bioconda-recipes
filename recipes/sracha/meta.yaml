@@ -1,5 +1,5 @@
 {% set name = "sracha" %}
-{% set version = "0.3.11" %}
+{% set version = "0.7.1" %}
 
 package:
   name: {{ name }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/rnabioco/sracha-rs/archive/v{{ version }}.tar.gz
-  sha256: 7c0c79351d9482b61fcbde7edda8cf9d6e25fec52d182be2e7a1d482595a94ec
+  sha256: 1b6664887202d64775136b04a2bee3f257853b42eeb0f5b2660076268e3ae01f
 
 build:
   number: 0
