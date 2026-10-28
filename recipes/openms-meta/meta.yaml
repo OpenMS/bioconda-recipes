@@ -53,10 +53,11 @@ requirements:
       - coin-or-cgl
       - coin-or-cbc
       - eigen >=3.4.0
-      # Arrow/Parquet are required since 3.6.0 (>= 23). Pinned to one major to keep a single build variant;
-      # the conda-forge-pinning that bioconda uses only lists libarrow 19-22.
-      - libarrow =23=*_cpu
-      - libparquet =23
+      # Arrow/Parquet are required since 3.6.0. Pinned to one major to keep a single build variant (the
+      # conda-forge-pinning that bioconda uses only lists libarrow 19-22): the one of the vcpkg baseline of
+      # OpenMS, which its PR CI builds with, so that code that builds there builds here.
+      - libarrow =24=*_cpu
+      - libparquet =24
       - libboost-devel  # only the header-only part of Boost is used since 3.6.0; libboost-headers would suffice
       - libcurl
       - libsvm
@@ -96,8 +97,8 @@ outputs:
           - eigen >=3.4.0
           # libOpenMS links these (privately); list them so that their run_exports become run
           # dependencies of libopenms itself (3.5.0's libopenms lacked libarrow/libparquet).
-          - libarrow =23=*_cpu
-          - libparquet =23
+          - libarrow =24=*_cpu
+          - libparquet =24
           - libboost-devel
           - libcurl
           - libsvm
@@ -150,10 +151,10 @@ outputs:
         # Since 3.6.0 the TOPP tools link only libOpenMS_CLI/libOpenMS (OpenMS#10247). Arrow/Parquet stay here so
         # their run_exports pin the same versions as libopenms. No pin_compatible() for them: it multiplied the
         # build by the four libarrow variants of the global pinning (4 builds of openms 3.5.0 per platform).
-        # "23.* *_cpu", not "=23=*_cpu": with a build string, conda reads "=23" as "==23" (23.0.0 only);
-        # merged with libopenms' run dependency libarrow >=23.0.1,<23.1.0a0 that is unsatisfiable.
-        - libarrow 23.* *_cpu
-        - libparquet =23
+        # "24.* *_cpu", not "=24=*_cpu": with a build string, conda reads "=24" as "==24" (24.0.0 only);
+        # merged with libopenms' run dependency on a later 24.0.x that is unsatisfiable.
+        - libarrow 24.* *_cpu
+        - libparquet =24
       run:
         # conda does not support run_exports from outputs in other outputs of the same package yet,
         # otherwise having libopenms in host would be enough.
