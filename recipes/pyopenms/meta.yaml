@@ -39,7 +39,7 @@ requirements:
     - pandas >=3
     - matplotlib-base >=3.5
     - libopenms =={{ version }}
-    - libarrow =23=*_cpu
+    - libarrow =24=*_cpu
     - libboost-headers
     - eigen >=3.4.0
   run:
