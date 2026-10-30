@@ -48,11 +48,9 @@ requirements:
     # Note: pinning of sysroot_linux-64 =2.17 enforces cos7 and is currently needed to prevent an memcpy@GLIBC2.14 error
     host:
       - bzip2
-      - coin-or-utils
-      - coin-or-clp
-      - coin-or-cgl
-      - coin-or-cbc
       - eigen >=3.4.0
+      # LP/MIP solver; OpenMS needs >= 1.11 and finds it by its CMake config (else it would download HiGHS)
+      - highs >=1.11
       # Arrow/Parquet are required since 3.6.0. Pinned to one major to keep a single build variant (the
       # conda-forge-pinning that bioconda uses only lists libarrow 19-22): the one of the vcpkg baseline of
       # OpenMS, which its PR CI builds with, so that code that builds there builds here.
@@ -61,8 +59,9 @@ requirements:
       - libboost-devel  # only the header-only part of Boost is used since 3.6.0; libboost-headers would suffice
       - libcurl
       - libsvm
+      # XML parser since OpenMS 3.7 (replaces Xerces-C); -devel has the headers, run_exports pin libxml2
+      - libxml2-devel >=2.13
       - libzip
-      - xerces-c
       - zlib
       - zstd
       - libgomp  # [linux]
@@ -90,11 +89,9 @@ outputs:
           - cmake
         host:
           - bzip2
-          - coin-or-utils
-          - coin-or-clp
-          - coin-or-cgl
-          - coin-or-cbc
           - eigen >=3.4.0
+          # LP/MIP solver; OpenMS needs >= 1.11 and finds it by its CMake config (else it would download HiGHS)
+          - highs >=1.11
           # libOpenMS links these (privately); list them so that their run_exports become run
           # dependencies of libopenms itself (3.5.0's libopenms lacked libarrow/libparquet).
           - libarrow =24=*_cpu
@@ -102,8 +99,9 @@ outputs:
           - libboost-devel
           - libcurl
           - libsvm
+          # XML parser since OpenMS 3.7 (replaces Xerces-C); -devel has the headers, run_exports pin libxml2
+          - libxml2-devel >=2.13
           - libzip
-          - xerces-c
           - zlib
           - zstd
           - libgomp  # [linux]
@@ -113,8 +111,8 @@ outputs:
 
     build:
       run_exports:
-          # We only need to export things that we expose in our library! Since 3.6.0, Xerces-C, libsvm, Eigen,
-          # CURL and nlohmann_json are private dependencies of libOpenMS and Qt is not used without the GUI.
+          # We only need to export things that we expose in our library! Since 3.6.0, the XML parser, libsvm, Eigen,
+          # CURL and nlohmann_json (and since 3.7.0 HiGHS) are private dependencies of libOpenMS and Qt is not used without the GUI.
           # Consumers only need the Boost headers (find_dependency(Boost) in OpenMSConfig.cmake).
           - libopenms {{ version }}
       # Looks like we are only using header-only part of boost in libOpenMS
