@@ -40,9 +40,11 @@ cd build
 # We set the BUILD_RPATH to the BUILD_PREFIX just to make CMake aware that the stupid compiler will add
 #  this RPATH to the end of the link line (visible with -v linker flag). With this CMake can remove it at install time.
 # OpenMS 3.6.0 would download at configure time: openms-thermo-bridge (+ Thermo assemblies, needs the .NET SDK)
-#  with WITH_THERMO_RAW (default ON), opentims with WITH_OPENTIMS (default ON), HiGHS if no LP solver is found
-#  (LP_SOLVER=AUTO), yaml-cpp >= 0.9 with ENABLE_TDL (conda-forge has 0.8), wnet* with WITH_WNETALIGN.
-#  All of them are off or pinned to the conda packages here.
+#  with WITH_THERMO_RAW (default ON), opentims with WITH_OPENTIMS (default ON), HiGHS if it finds none,
+#  yaml-cpp >= 0.9 with ENABLE_TDL (conda-forge has 0.8), wnet* with WITH_WNETALIGN.
+#  All of them are off or pinned to the conda packages here (HiGHS: the highs host package).
+# LP solver: HiGHS, the default since 3.7.0 and the only one in later versions, which reject
+#  LP_SOLVER=COIN/GLPK. So no -DLP_SOLVER (COIN-OR is deprecated in 3.7.0 and removed after it).
 # Arrow/Parquet are always required since 3.6.0 (WITH_PARQUET is gone); conda-forge ships shared libraries.
 # Removed since 3.5.0 (they now only cause unused-variable warnings or, for OPENMS_CONTRIB_LIBS, the deprecated
 #  contrib code path): OPENMS_CONTRIB_LIBS, BOOST_USE_STATIC, WITH_PARQUET, ENABLE_CWL (never an option),
@@ -53,7 +55,7 @@ cmake -S .. -B . -G Ninja -DCMAKE_BUILD_TYPE="Release" \
 	-DCMAKE_PREFIX_PATH="${PREFIX}" -DCMAKE_INSTALL_PREFIX="${PREFIX}" \
 	-DCMAKE_BUILD_RPATH="$BUILD_PREFIX/lib" -DCMAKE_INSTALL_RPATH="${PREFIX}/lib" -DCMAKE_INSTALL_REMOVE_ENVIRONMENT_RPATH=ON \
 	-DHAS_XSERVER=OFF -DWITH_GUI=OFF -DENABLE_DOCS=OFF -DENABLE_CLASS_TESTING=OFF -DENABLE_TOPP_TESTING=OFF -DWITH_HDF5=OFF \
-	-DARROW_USE_STATIC=OFF -DLP_SOLVER=COIN \
+	-DARROW_USE_STATIC=OFF \
 	-DWITH_THERMO_RAW=OFF -DWITH_OPENTIMS=OFF -DWITH_WNETALIGN=OFF -DENABLE_TDL=OFF \
 	-DCMAKE_OSX_SYSROOT=${CONDA_BUILD_SYSROOT} \
  	${PLATFORM_CMAKE_EXTRAS}
